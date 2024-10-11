@@ -1,7 +1,7 @@
 const container = document.querySelector(".container");
 const body = document.querySelector("body");
 
-let initialNumber=3;
+let initialNumber=25;
 let side=  (800)/initialNumber+ "px";
 
 for (let i=0;i<=(initialNumber**2)-1;i++){
@@ -15,28 +15,46 @@ for (let i=0;i<=(initialNumber**2)-1;i++){
 const boxes = document.querySelectorAll(".box");
 
 boxes.forEach(box => {
+    let isClicked = false;
+
     box.addEventListener("mouseover", () => {
-        // Add your desired functionality here
-        box.style.backgroundColor = "lightblue"; // Example: Change background color
+        if (!isClicked) {
+            box.style.backgroundColor = "black";   
+        }
     });
+
+    //First click makes the box black
+    box.addEventListener("mouseout", () => {
+        if (!isClicked) {
+            box.style.backgroundColor = "rgb(241, 241, 177)";
+        }
+    });
+    
+    // Second click makes it yellow again
+    let clickCount = 0;
+    box.addEventListener("click", () => {
+        isClicked = true;
+        if (clickCount % 2){
+            box.style.backgroundColor = "rgb(241, 241, 177)";
+        } else {
+            box.style.backgroundColor = "black";
+        }
+        clickCount++;
+    });
+
+    
 });
 
-boxes.forEach(box => {
-    box.addEventListener("mouseout", () => {
-        // Add your desired functionality here
-        box.style.backgroundColor = "rgb(241, 241, 177)"; // Example: Change background color
-    });
-});
 
 // This is my test div
-const div = document.createElement("div"); 
-div.style.border= "1px solid black";
-div.style.padding= "50px";
-body.appendChild(div)
-div.addEventListener("mouseover",()=>{
-    div.style.backgroundColor= "red";
-});
+// const div = document.createElement("div"); 
+// div.style.border= "1px solid black";
+// div.style.padding= "50px";
+// body.appendChild(div)
+// div.addEventListener("mouseover",()=>{
+//     div.style.backgroundColor= "red";
+// });
 
-div.addEventListener("mouseout",()=>{
-    div.style.backgroundColor= " rgb(241, 241, 177)";
-})
+// div.addEventListener("mouseout",()=>{
+//     div.style.backgroundColor= " rgb(241, 241, 177)";
+// })
