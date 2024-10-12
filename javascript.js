@@ -31,13 +31,13 @@ function createBoxes() {
         let isClicked = false;
     
         box.addEventListener("mouseover", () => {
-            if (!isClicked || mouseOverEnabled) {
+            if (!isClicked ) {
                 box.style.backgroundColor = "gray";   
             }
         });
     
         box.addEventListener("mouseout", () => {
-            if (!isClicked && !mouseOverEnabled) {
+            if (!isClicked ) {
                 box.style.backgroundColor = "rgb(241, 241, 177)";
             }
         });
@@ -53,6 +53,40 @@ function createBoxes() {
             }
             clickCount++;
         });    
+    });
+};
+
+let coloringActive = false; // Track coloring mode
+let startColoring = false; 
+
+function drawBoxes() {
+    container.innerHTML = "";
+    
+    for (let i=0;i<=(initialNumber**2)-1;i++){
+        var box = document.createElement("div");
+        box.className = "box";
+        box.style.width = side;
+        box.style.height = side;
+        container.appendChild(box);        
+    }
+
+    const boxes = document.querySelectorAll(".box");
+
+    boxes.forEach(box => {
+        coloringActive=true;
+        box.addEventListener("mouseover", () => {
+            if (coloringActive && startColoring) {
+                box.style.backgroundColor = "black"; // Color black on mouseover if active
+            }
+        });
+
+        box.addEventListener("click", () => {
+            if (!startColoring) {
+                startColoring = true; // Start coloring mode
+            } else {
+                startColoring = false; // Stop coloring mode
+            }
+        });
     });
 };
 
@@ -83,12 +117,15 @@ reset.addEventListener("click",()=>{
 
 let clickCount2=0;
 draw.addEventListener("click",()=>{
-    mouseOverEnabled = !mouseOverEnabled;
+    // mouseOverEnabled = !mouseOverEnabled;
+    
 
     if (clickCount2%2){
         draw.textContent = "Activate";
+        createBoxes();
     } else {
         draw.textContent = "Deactivate";
+        drawBoxes();
     }
     clickCount2++;
 });
