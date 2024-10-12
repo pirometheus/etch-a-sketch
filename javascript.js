@@ -4,10 +4,14 @@ const submit = document.querySelector(".submit");
 const getInput = document.getElementById("getInput");
 const reset = document.querySelector(".reset");
 const userInput = document.querySelector(".userInput");
+const draw = document.querySelector(".draw");
 
 
 let initialNumber =16;
 let side=  (800)/initialNumber+ "px";
+let mouseOverEnabled=false;
+
+
 
 
 function createBoxes() {
@@ -27,14 +31,13 @@ function createBoxes() {
         let isClicked = false;
     
         box.addEventListener("mouseover", () => {
-            if (!isClicked) {
-                box.style.backgroundColor = "black";   
+            if (!isClicked || mouseOverEnabled) {
+                box.style.backgroundColor = "gray";   
             }
         });
     
-        //First click makes the box black
         box.addEventListener("mouseout", () => {
-            if (!isClicked) {
+            if (!isClicked && !mouseOverEnabled) {
                 box.style.backgroundColor = "rgb(241, 241, 177)";
             }
         });
@@ -42,7 +45,7 @@ function createBoxes() {
         // Second click makes it yellow again
         let clickCount = 0;
         box.addEventListener("click", () => {
-            isClicked = true;
+            isClicked = !mouseOverEnabled;
             if (clickCount % 2){
                 box.style.backgroundColor = "rgb(241, 241, 177)";
             } else {
@@ -53,7 +56,12 @@ function createBoxes() {
     });
 };
 
+
+
+
+
 createBoxes();
+
 
 submit.addEventListener("click", ()=>{
     initialNumber = document.getElementById("getInput").value;
@@ -62,10 +70,27 @@ submit.addEventListener("click", ()=>{
     userInput.textContent = `Grid Size: ${initialNumber}x${initialNumber}`;
 
     createBoxes();
+    
 });
 
 reset.addEventListener("click",()=>{
     createBoxes();
+});
+
+
+
+
+
+let clickCount2=0;
+draw.addEventListener("click",()=>{
+    mouseOverEnabled = !mouseOverEnabled;
+
+    if (clickCount2%2){
+        draw.textContent = "Activate";
+    } else {
+        draw.textContent = "Deactivate";
+    }
+    clickCount2++;
 });
 
 
