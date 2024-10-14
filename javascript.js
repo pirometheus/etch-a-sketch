@@ -10,6 +10,7 @@ const draw = document.querySelector(".draw");
 let initialNumber =16;
 let side=  (1000)/initialNumber+ "px";
 let mouseOverEnabled=false;
+let  boxColor = "black";
 
 
 
@@ -49,7 +50,7 @@ function createBoxes() {
             if (clickCount % 2){
                 box.style.backgroundColor = "rgb(241, 241, 177)";
             } else {
-                box.style.backgroundColor = "black";
+                box.style.backgroundColor = boxColor;
             }
             clickCount++;
         });    
@@ -103,14 +104,14 @@ createBoxes();
 submit.addEventListener("click", ()=>{
     initialNumber = document.getElementById("getInput").value;
     if (initialNumber>100) {
-        document.querySelector("label").textContent = "Please type a number up to 100";
+        document.querySelector("label").textContent = "Please enter a number less than 100 ";
         getInput.value="";
     } else if (initialNumber<=0) {
         document.querySelector("label").textContent = "Please type a valid number";
         getInput.value="";
     } else {
     side=  (1000)/initialNumber+ "px";
-    document.querySelector("label").textContent = "Type the number for a side";
+    document.querySelector("label").textContent = "Enter the number of boxes for one edge ";
     getInput.value="";
     userInput.textContent = `Grid Size: ${initialNumber}x${initialNumber}`;
 
@@ -165,20 +166,24 @@ function drawFunction(){
 
 
 
+function generateRandomColor(){
+    let maxVal = 0xFFFFFF; // 16777215
+    let randomNumber = Math.random() * maxVal; 
+    randomNumber = Math.floor(randomNumber);
+    randomNumber = randomNumber.toString(16);
+    let randColor = randomNumber.padStart(6, 0);   
+    return `#${randColor.toUpperCase()}`
+}
+
+let randomColor = generateRandomColor();
+const randomize = document.querySelector(".randomize");
+
+randomize.addEventListener("click", ()=>{
+    boxColor=randomColor;
+    console.log(boxColor);
+    createBoxes();
+})
 
 
 
 
-
-// This is my test div
-// const div = document.createElement("div"); 
-// div.style.border= "1px solid black";
-// div.style.padding= "50px";
-// body.appendChild(div)
-// div.addEventListener("mouseover",()=>{
-//     div.style.backgroundColor= "red";
-// });
-
-// div.addEventListener("mouseout",()=>{
-//     div.style.backgroundColor= " rgb(241, 241, 177)";
-// })
