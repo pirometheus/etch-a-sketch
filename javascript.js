@@ -8,7 +8,7 @@ const draw = document.querySelector(".draw");
 
 
 let initialNumber =16;
-let side=  (800)/initialNumber+ "px";
+let side=  (1000)/initialNumber+ "px";
 let mouseOverEnabled=false;
 
 
@@ -77,7 +77,10 @@ function drawBoxes() {
         box.addEventListener("mouseover", () => {
             if (coloringActive && startColoring) {
                 box.style.backgroundColor = "black"; // Color black on mouseover if active
-            }
+            } 
+            // if ((box.style.backgroundColor ="black")&& coloringActive == false) {
+            //     box.style.backgroundColor = "red";
+            // }
         });
 
         box.addEventListener("click", () => {
@@ -99,16 +102,27 @@ createBoxes();
 
 submit.addEventListener("click", ()=>{
     initialNumber = document.getElementById("getInput").value;
-    side=  (800)/initialNumber+ "px";
+    if (initialNumber>100) {
+        document.querySelector("label").textContent = "Please type a number up to 100";
+        getInput.value="";
+    } else if (initialNumber<=0) {
+        document.querySelector("label").textContent = "Please type a valid number";
+        getInput.value="";
+    } else {
+    side=  (1000)/initialNumber+ "px";
+    document.querySelector("label").textContent = "Type the number for a side";
     getInput.value="";
     userInput.textContent = `Grid Size: ${initialNumber}x${initialNumber}`;
 
     createBoxes();
+    }
     
 });
 
 reset.addEventListener("click",()=>{
     createBoxes();
+    drawFunction();
+    draw.textContent = "Activate";
 });
 
 
@@ -132,7 +146,22 @@ draw.addEventListener("click",()=>{
 
 
 
-
+function drawFunction(){
+    let clickCount2=0;
+    draw.addEventListener("click",()=>{
+        // mouseOverEnabled = !mouseOverEnabled;
+        
+    
+        if (clickCount2%2){
+            draw.textContent = "Activate";
+            createBoxes();
+        } else {
+            draw.textContent = "Deactivate";
+            drawBoxes();
+        }
+        clickCount2++;
+    });
+}
 
 
 
