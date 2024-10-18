@@ -77,7 +77,8 @@ function drawBoxes() {
         coloringActive=true;
         box.addEventListener("mouseover", () => {
             if (coloringActive && startColoring) {
-                box.style.backgroundColor = "black"; // Color black on mouseover if active
+                // boxColor= generateRandomColor();
+                box.style.backgroundColor = boxColor; // Color black on mouseover if active
             } 
             // if ((box.style.backgroundColor ="black")&& coloringActive == false) {
             //     box.style.backgroundColor = "red";
@@ -94,8 +95,82 @@ function drawBoxes() {
     });
 };
 
+function createBoxesRandomColor() {
+    container.innerHTML = "";
+    
+    for (let i=0;i<=(initialNumber**2)-1;i++){
+        var box = document.createElement("div");
+        box.className = "box";
+        box.style.width = side;
+        box.style.height = side;
+        container.appendChild(box);        
+    }
 
+    const boxes = document.querySelectorAll(".box");
 
+    boxes.forEach(box => {
+        let isClicked = false;
+    
+        box.addEventListener("mouseover", () => {
+            if (!isClicked ) {
+                box.style.backgroundColor = "gray";   
+            }
+        });
+    
+        box.addEventListener("mouseout", () => {
+            if (!isClicked ) {
+                box.style.backgroundColor = "rgb(241, 241, 177)";
+            }
+        });
+        
+        // Second click makes it yellow again
+        let clickCount = 0;
+        box.addEventListener("click", () => {
+            isClicked = !mouseOverEnabled;
+            if (clickCount % 2){
+                box.style.backgroundColor = "rgb(241, 241, 177)";
+            } else {
+                box.style.backgroundColor = generateRandomColor();
+            }
+            clickCount++;
+        });    
+    });
+};
+
+function drawBoxesRandomColor() {
+    container.innerHTML = "";
+    
+    for (let i=0;i<=(initialNumber**2)-1;i++){
+        var box = document.createElement("div");
+        box.className = "box";
+        box.style.width = side;
+        box.style.height = side;
+        container.appendChild(box);        
+    }
+
+    const boxes = document.querySelectorAll(".box");
+
+    boxes.forEach(box => {
+        coloringActive=true;
+        box.addEventListener("mouseover", () => {
+            if (coloringActive && startColoring) {
+                boxColor= generateRandomColor();
+                box.style.backgroundColor = boxColor; // Color black on mouseover if active
+            } 
+            // if ((box.style.backgroundColor ="black")&& coloringActive == false) {
+            //     box.style.backgroundColor = "red";
+            // }
+        });
+
+        box.addEventListener("click", () => {
+            if (!startColoring) {
+                startColoring = true; // Start coloring mode
+            } else {
+                startColoring = false; // Stop coloring mode
+            }
+        });
+    });
+};
 
 
 createBoxes();
@@ -121,6 +196,7 @@ submit.addEventListener("click", ()=>{
 });
 
 reset.addEventListener("click",()=>{
+    
     createBoxes();
     drawFunction();
     draw.textContent = "Activate";
@@ -167,7 +243,7 @@ function drawFunction(){
 
 
 function generateRandomColor(){
-    let maxVal = 0xFFFFFF; // 16777215
+    let maxVal = 0xFFFFFF; 
     let randomNumber = Math.random() * maxVal; 
     randomNumber = Math.floor(randomNumber);
     randomNumber = randomNumber.toString(16);
@@ -175,13 +251,16 @@ function generateRandomColor(){
     return `#${randColor.toUpperCase()}`
 }
 
-let randomColor = generateRandomColor();
+// let randomColor = generateRandomColor();
 const randomize = document.querySelector(".randomize");
 
 randomize.addEventListener("click", ()=>{
-    boxColor=randomColor;
-    console.log(boxColor);
-    createBoxes();
+    // randomColor= generateRandomColor();
+    // boxColor=randomColor;
+    // console.log(boxColor);
+    // createBoxes(boxColor= generateRandomColor());
+    // createBoxesRandomColor();
+    drawBoxesRandomColor()
 })
 
 

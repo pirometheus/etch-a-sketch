@@ -9,22 +9,50 @@
 </head>
 <body>
     <script src="javascript.js" defer></script>
-    <h1>Etch-A-Sketch</h1> 
+    <div class="introduction">
+        <p class="headig"> Introduction
+            <p class="content">This is  is a classic mechanical drawing toy that allows you to create line drawings by turning the boxes in different colors. The default color for the boxes is black. 
+                <ul> 
+                    <li>One click turn the color of the box</li>
+                    <li>Second click on the colored box erase the color of the box.</li>
+                    <li>Reset button clears the board</li>
+                </ul>
+            </p>
+            
+            <p class="content">Have fun with drawing</p>
+        </p>
+        
+    </div>
 
     <div class="bigContainer">
+        <h1>Etch-A-Sketch</h1> 
         <div class="container"></div>
+        <div class="inputclass">
+            <label for="input">Enter the number of boxes for one edge</label>
+            <input id="getInput" type="number">
+            <button class="submit">Submit</button>
+            <p class="userInput">Grid Size: 16x16</p>
+            <button class="reset">Reset</button>
+        </div>
     </div>
 
-    <label for="input">Enter the number of boxes for one edge</label>
-    <input id="getInput" type="number">
-    <button class="submit">Submit</button>
-    <p class="userInput">Grid Size: 16x16</p>
 
-    <div class="button">
-        <button class="reset">Reset</button>
-        <button class="draw">Draw</button>
+
+    <div class="drawing">
+        <p class="headig"> Drawing
+            <p class="content"> You can also use the drawing function instead of clicking individual boxes. Simply click the "Draw" button to activate it. You can deactivate this function at any time as well. First click 
+                will start and the second click will pause the drawing. To be able to use the random color black again just refresh the page. 
+                <p class="content">When you click the "Randomize" button, it will automatically activate the drawing function, and each box will be assigned a different color.</p>
+            </p>
+        </p>
+
+        
+        <div class="button">
+            <button class="randomize">Randomize</button>
+            <button class="draw">Draw</button>
+        </div>
     </div>
-    <button class="randomize">Randomize</button>
+    
     
     </div>
 </body>
